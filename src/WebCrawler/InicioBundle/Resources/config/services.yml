@@ -1,0 +1,7 @@
+parameters:
+#    web_crawler_inicio.example.class: WebCrawler\InicioBundle\Example
+
+services:
+#    web_crawler_inicio.example:
+#        class: %web_crawler_inicio.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

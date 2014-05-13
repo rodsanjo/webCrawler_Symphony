@@ -1,0 +1,28 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Web Crawler{% endblock %}
+
+{% block body %}
+    <h1>Busqueda con Web Crawler</h1>
+    
+    <form name="form_search" method="post" action="index.html.twig">
+        <input id='search' name='search' type="text" value='search' />
+        <input id='url' name='url' type="text" value='where?' />
+        <input type='submit' value='send'/>
+    </form> 
+
+        {% block javascript_body %}
+
+            <script type="text/javascript">       
+                 var search = document.getElementById('search').value;
+                 alert('Search: '+search);
+                 {% search = search %}
+            </script>
+
+        {% endblock %}
+
+        <a href="{{ path('web_crawler_inicio_homepage', {'search': search } )}}"><input type='button' value='Buscar' /></a>
+    
+    
+    <a href="{{ path('web_crawler_inicio_homepage', {'search': search } )}}"><input type='button' value='Buscar' /></a>
+{% endblock %}

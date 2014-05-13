@@ -1,0 +1,4 @@
+web_crawler_inicio:
+    resource: "@WebCrawlerInicioBundle/Resources/config/routing.yml"
+    prefix:   /
+

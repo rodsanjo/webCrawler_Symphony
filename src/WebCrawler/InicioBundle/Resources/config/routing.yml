@@ -1,0 +1,7 @@
+web_crawler_inicio_homepage:
+    pattern:  /webcrawler/{search}
+    defaults: { _controller: WebCrawlerInicioBundle:Default:index }
+    
+web_crawler_searchResult:
+    pattern:  /webcrawler/search-result/{search}/{url}
+    defaults: { _controller: WebCrawlerInicioBundle:Default:searchResutl }
