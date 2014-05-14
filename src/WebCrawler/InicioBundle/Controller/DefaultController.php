@@ -11,10 +11,13 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    private static $url = 'https://www.linkedin.com/vsearch/f?type=all&keywords=Symfony2+Gliwice';
+    //private static $url = 'https://www.linkedin.com/vsearch/f?type=all&keywords=Symfony2+Gliwice';
     private static $url_view_by = 'https://www.linkedin.com/wvmx/profile?trk=hb_ntf_VIEWED_YOUR_PROFILE';
     
-    /**
+    private static $search = 'php jorge';
+    private static $url = 'https://www.linkedin.com/vsearch/f?type=all&keywords=php+jorge';
+
+        /**
      * Generate the fields of the form
      * @param type $task
      * @return type
@@ -23,14 +26,14 @@ class DefaultController extends Controller
         
         $formulario = $this->createFormBuilder($search)
             ->add('search', 'text')
-            ->add('url', 'text')    
+            ->add('url', 'text' )    
             ->add('send', 'submit')
             ->getForm();
         
          return $formulario;
     }
     
-    public function indexAction(Request $request, $search = null)
+    public function indexAction(Request $request)
     {
         
         $form = self::form();
@@ -52,14 +55,13 @@ class DefaultController extends Controller
             $search = $data['search'];
             $url = $data['url'];
             
-            $crawler = new Crawler($url);
+            $html = html($url);   //I don't know how
+            
+            $crawler = new Crawler($html);
 
             foreach ($crawler as $domElement) {
                 print $domElement->nodeName;
             }
-              
-            return $this->render('web_crawler_searchResult', array('search' => $search, 'url' => $url ));
-            //return $this->redirect($this->generateUrl('web_crawler_searchResult', array('search' => $search, 'url' => $url ));
             
         }
         
@@ -71,20 +73,13 @@ class DefaultController extends Controller
     {
         $url = self::$url;
         //Extract the html from the URL given
-        //$html = html($url);   I don't know how
+        $html = html($url);   //I don't know how
          
         $crawler = new Crawler($html);
 
         foreach ($crawler as $domElement) {
             print $domElement->nodeName;
-        }
-        
-        $uri = $link->getUri();
-        
-        $uri = $form->getUri();
-
-        $method = $form->getMethod();
-                      
+        }                      
        
     }
     
