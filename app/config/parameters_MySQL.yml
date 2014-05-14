@@ -1,0 +1,15 @@
+#Jorge's computer with MySQL
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: '3306'
+    database_name: sellekt
+    database_user: daw2_user
+    database_password: daw2_user
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    locale: en
+    secret: e94c4d317a9993eddd6d8616bc6ce1b10
+    database_path: null

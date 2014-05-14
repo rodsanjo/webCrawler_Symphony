@@ -9,6 +9,9 @@ use Symfony\Component\DomCrawler\Crawler;
 // for the forms
 use Symfony\Component\HttpFoundation\Request;
 
+//Databases
+use WebCrawler\InicioBundle\Entity\wrc_searches;
+
 class DefaultController extends Controller
 {
     //private static $url = 'https://www.linkedin.com/vsearch/f?type=all&keywords=Symfony2+Gliwice';
@@ -19,7 +22,7 @@ class DefaultController extends Controller
 
         /**
      * Generate the fields of the form
-     * @param type $task
+     * @param type $search
      * @return type
      */
     private function form($search = null){
@@ -28,6 +31,7 @@ class DefaultController extends Controller
             ->add('search', 'text')
             ->add('url', 'text' )    
             ->add('send', 'submit')
+            ->add('reset', 'reset')
             ->getForm();
         
          return $formulario;
@@ -61,6 +65,8 @@ class DefaultController extends Controller
 
             foreach ($crawler as $domElement) {
                 print $domElement->nodeName;
+                //self::createSearch($search, $profile);  //static
+                $this->createSearch($search, $profile); //no static
             }
             
         }
@@ -69,18 +75,18 @@ class DefaultController extends Controller
        
     }
     
-     public function searchResultAction($search, $url)
-    {
-        $url = self::$url;
-        //Extract the html from the URL given
-        $html = html($url);   //I don't know how
-         
-        $crawler = new Crawler($html);
+    private function createSearch( $search, $profile ){
+        
+        $search = new wrc_searches();   // Si no lo tuvieramos puesto arriba: \WebCrawler\InicioBundle\Entity\wrc_searches();    
+        $search->setSearch($search);
+        $search->setProfile($profile);
 
-        foreach ($crawler as $domElement) {
-            print $domElement->nodeName;
-        }                      
-       
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($search);
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('todolisttasks_homepage'));
+        //return new Response('Created search id '.$search->getId());
     }
     
 }
